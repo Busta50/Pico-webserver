@@ -21,8 +21,9 @@
 
 ## Descripcion
 
-* 
-  -
-* 
+* Los sensores obtendrán datos sobre el ambiente y mandara los datos al microcontrolador
+  -El sensor utilizado es
+* Podemos hacer uso de estas herramientas para aplicarlas en un sin fin de actividades
+  -Se puede trabajar con poco voltaje y muy poca inversión para lograrlo
 
 
