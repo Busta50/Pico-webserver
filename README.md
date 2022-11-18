@@ -1,10 +1,7 @@
 
 <h1 align="center">
   <br>
-  
-  <br>
- 3.2 Pico W, Webserver con 3 sensores y animación UIX
-  <br>
+   3.2 Pico W, Webserver con 3 sensores y animación UIX
 </h1>
 
 # Integrantes del equipo
@@ -22,8 +19,14 @@
 
 ## Caracteristicas
 
-*
-*
-*
+* LED o foco LED
+* Sensores accesibles
+* Utilización instantanea sin mucho presupuesto
+
+## Rapsberry PI, ejemplo funcionando 
+
+En el siguiente enlace pueden revisar la función del proyecto
+
+https://www.loom.com/share/ef37448563b64554bbeb5c62f8f72b28
 
 
