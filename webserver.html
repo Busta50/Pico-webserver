@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<head>
+
+    <title>Sistemas Programables</title>
+  
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Yeseva+One&display=swap');
+
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            color: white;
+        }
+ 
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Yeseva One', cursive;
+        }
+
+        h1{
+            background:linear-gradient(1deg,#c73866,#fe676e);;
+            width: 100%;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .parrafo_tabla{
+           
+           text-align: center;
+           padding: 10px ;
+
+            margin-top:20px;
+            border-radius: 5px;
+        }
+        .parrafo_tabla span{
+            background:linear-gradient(1deg,#c73866,#fe676e);;
+            display: inline-block;
+            margin: 0 auto;
+            padding: 5px;
+            border-radius: 5px;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background-color: #303030;
+        }
+
+        header {
+            
+            width: 100vw;
+            margin: 0;
+        }
+        
+        main ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+           
+            padding: 0;
+        }
+
+
+        main ul li {
+            padding: 0.25em 1em;
+        }
+
+        main ul li:not(:last-child) {
+            border-right: 2px solid white;
+            margin-inline-end: 1em;
+        }
+        .datafield.temperature{
+            margin-top: 20px;
+        }
+        .datafield{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            background:linear-gradient(1deg,#fe676e,#fd8f52);
+            width: 500px;
+            color: white;
+            margin: 0 auto;
+            margin-bottom: 5px;
+            border-radius: 20px;
+            padding: 10px;
+ 
+        }
+
+        footer{
+            text-align: center;
+            margin-top: 30px;
+        }
+.form-check{
+    text-align: center;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 0 auto;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+        @media(max-width: 768px){
+            main ul li:not(:last-child) {
+                border-right: none;
+                margin-inline-end: 0;
+            }
+            main ul li{
+                padding: 0.25em 0.5em;
+            }
+            .datafield{
+                width: 100%;
+            }
+        }
+
+            
+        @media(max-width: 653px){
+            main ul{
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <header>
+        <h1>Monitor de Hogar</h1>
+       
+    </header>
+    <main>
+        <p class="parrafo_tabla"><span>Equipo conformado por:</span> </p>
+        <ul>
+            <li>Mojica Vidal Jonathan J.</li>
+            <li>Cruz Ruiz Luis Angel</li>
+            <li>Diaz Rodriguez Jorge Said</li>
+            <li>Mondaca Medina Sofia Carolina</li>
+            <li>Chávez carballo Karla</li>
+            <li>Bustamante Garces Jesús Arturo</li>
+        </ul>
+        <div class="temperature datafield">
+            <h2>Temperatura</h2>
+            <p>Temperatura actual: <output id="temperature">0</output> °C</p>
+        </div>
+        <div class="light datafield">
+            <h2>Luz</h2>
+            <p>Luz actual: <output id="light">0</output></p>
+        </div>
+        <div class="color datafield">
+            <h2>Color</h2>
+            <p>Color actual: <span id="color">0</span></p>
+        </div>
+        <h2 style="text-align:center;margin-top:20px;">Control de luces</h2>
+<div class="form-check form-switch">
+    <label class="switch switch-off" id="switch"  >
+        <input type="checkbox" id="checkSwitch">
+        <span class="slider round" onclick="switchClick()"></span>
+      </label>
+  </div>
+    </main>
+
+    <footer>
+        <p>© 2022 Sistemas Programables</p>
+        <p>Tecnologico Nacional de México Cámpus Instituto Tecnologico de Tijuana</p>
+    </footer>
+      <script>
+        const temperature_out = document.querySelector('#temperature');
+        const light_out = document.querySelector('#light');
+        const color_out = document.querySelector('#color');
+
+        const PICO_URL = 'http://192.168.43.3/get/sensors/';
+        const PICO_ON_URL = 'http://192.168.43.3/light/on';
+        const PICO_OFF_URL = 'http://192.168.43.3/light/off';
+        const getValues = () => {
+            fetch(PICO_URL).then(res => res.json()).then(data => {
+                temperature_out.innerHTML = data.temperatura;
+                light_out.innerHTML = data.luz;
+                color_out.innerHTML = data.color;
+            })
+        }
+         function switchClick() {  
+            let response;
+            var switchElement = document.getElementById("switch");
+            if(switchElement.classList.contains("switch-on")){
+                switchElement.classList.remove("switch-on");
+                switchElement.classList.add("switch-off");
+    
+                
+                fetch(PICO_ON_URL).then(res => res.json()).then(data => {
+                response = data.resoponse;
+                })
+                
+            }
+            else{
+                switchElement.classList.remove("switch-off");
+                switchElement.classList.add("switch-on");
+                fetch(PICO_OFF_URL).then(res => res.json()).then(data => {
+                response = data.resoponse;
+                })
+            }
+    }; 
+        setInterval(getValues, 1000)
+    </script>
+   <script>
+   </script>
+</body>
+
+</html>
